@@ -1,0 +1,20 @@
+name: Android APK
+on: workflow_dispatch
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+      - uses: actions/setup-java@v4
+        with:
+          distribution: microsoft
+          java-version: '17'
+      - run: dotnet workload install android
+      - run: dotnet publish src/Noctis.Android/Noctis.Android.csproj -c Release -p:AndroidPackageFormat=apk
+      - uses: actions/upload-artifact@v4
+        with:
+          name: noctis-apk
+          path: src/Noctis.Android/bin/Release/**/*.apk
