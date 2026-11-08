@@ -13,7 +13,7 @@ jobs:
           distribution: microsoft
           java-version: '17'
       - run: dotnet workload install android
-      - run: dotnet publish src/Noctis.Android/Noctis.Android.csproj -c Release -p:AndroidPackageFormat=apk
+      - run: dotnet publish src/Noctis.Android/Noctis.Android.csproj -c Release -r android-arm64 -p:AndroidPackageFormat=apk -p:RunAOTCompilation=true -p:AndroidEnableProfiledAot=false
       - uses: actions/upload-artifact@v4
         with:
           name: noctis-apk
